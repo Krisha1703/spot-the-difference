@@ -4,21 +4,52 @@ A fun, interactive “Spot the Difference” game built with **Next.js**, **Tail
 
 ---
 
-## 🎮 **Features**
+## 🎮 Features
 
-✅ Two images side-by-side — find all differences!  
+✅ Two images side-by-side — find all the differences!  
 ✅ JSON-based configuration for images & hotspots — no hardcoding.  
 ✅ Click to spot differences — shows animated circles for feedback.  
 ✅ Tracks correct and incorrect clicks.  
-✅ Arcade-style **countdown timer** with flicker & screen alert in the last 3 seconds.  
+✅ Arcade-style countdown timer with flicker & screen alert in the last 3 seconds.  
 ✅ Progress bar that fills up as you find more spots.  
-✅ Confetti and stars on completion.   
+✅ Confetti and stars on completion.  
+✅ Earn live badges for speed, accuracy & combos.  
 ✅ Fully responsive for mobile & desktop.  
 ✅ Clean, modular React components.
 
 ---
 
-## 📁 **Project Structure**
+## 🗂️ How the JSON Config Works
+
+The entire game is powered by a `config.json` file in the `public/` folder.
+
+### ✅ What’s inside `config.json`?
+
+```json
+{
+  "gameTitle": "Spot the 7 Difference",
+  "images": {
+    "image1": "/images/image1.png",
+    "image2": "/images/image2.png"
+  },
+  "differences": [
+    { "x": 100, "y": 200, "width": 50, "height": 50 },
+    { "x": 300, "y": 150, "width": 40, "height": 40 },
+    { "x": 500, "y": 300, "width": 30, "height": 30 }
+  ]
+}
+```
+
+### ✅ How is it used?
+
+* **Dynamic import**: The config is fetched dynamically using `fetch('/config.json')` inside the custom `usespot` hook.
+* **Images**: Sets the source for the left and right images.
+* **Differences**: Defines clickable hotspots with x, y coordinates and bounding box size.
+* **Easy updates**: To change images or spots, just edit `config.json` — no need to touch any React code.
+
+---
+
+## 📁 Project Structure
 
 ```
 📦 spot-the-difference/
@@ -47,47 +78,44 @@ A fun, interactive “Spot the Difference” game built with **Next.js**, **Tail
 ├── next.config.js
 └── README.md
 
-````
+```
 ---
 
-## ⚡ **Getting Started**
+## ⚛️ Tech Stack
 
-### ✅ **1. Install Dependencies**
+This project leverages modern React ecosystem tools to deliver a fast, interactive, and maintainable experience:
+
+* **React.js (Next.js App Router)** — using hooks, dynamic state, and modular client components to manage gameplay logic and state.
+* **Tailwind CSS** — utility-first styling for responsive design.
+* **TypeScript** — for strict type safety and maintainable code.
+* **Framer Motion** — for subtle animations and gamification effects.
+
+---
+
+## 🚀 Getting Started
+
+### ✅ Install dependencies
 
 ```bash
 npm install
 ```
 
-### ✅ **2. Run the Dev Server**
+### ✅ Run the dev server
 
 ```bash
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
+Visit [http://localhost:3000](http://localhost:3000) to play!
 
 ---
 
-## 🚀 **Build & Deploy**
+## 📸 Screenshots
 
-### **Build for Production**
-
-```bash
-npm run build
-npm run start
-```
----
-
-## 🙌 Tech Stack
-
-This project leverages modern React ecosystem tools to deliver a fast, interactive, and maintainable experience:
-
-- **Next.js App Router** — built on React for seamless server/client rendering, file-based routing, and powerful data fetching.  
-- **React Hooks & Functional Components** — for clean, modular, and reusable UI logic (e.g., custom `useSpotGame` hook managing game state).  
-- **Tailwind CSS** — utility-first styling integrated with React for rapid UI development and responsive design without leaving JSX.  
-- **Framer Motion** — React-powered animation library to create smooth, declarative motion effects (click feedback, confetti, modal transitions).  
-- **TypeScript** — adds static typing on top of React for safer, more scalable code and improved developer experience.
+| Gameplay                                       | Result Modal                                           |
+| ---------------------------------------------- | ------------------------------------------------------ |
+| ![Gameplay](./public/screenshots/1.png) | ![Result Modal](./public/screenshots/2.png) |
 
 ---
 
-```
+

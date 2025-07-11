@@ -7,8 +7,8 @@ type Props = {
   image1: string;
   image2: string;
   handleClick: (e: React.MouseEvent<HTMLCanvasElement>, canvas: HTMLCanvasElement) => void;
-  canvas1Ref: React.RefObject<HTMLCanvasElement>;
-  canvas2Ref: React.RefObject<HTMLCanvasElement>;
+  canvas1Ref: React.RefObject<HTMLCanvasElement | null>;
+  canvas2Ref: React.RefObject<HTMLCanvasElement | null>;
   circles: Circle[];
 };
 

@@ -21,8 +21,9 @@ export default function Home() {
     getStars,
   } = useSpotGame();
 
-  const canvas1Ref = useRef<HTMLCanvasElement>(null);
-  const canvas2Ref = useRef<HTMLCanvasElement>(null);
+ const canvas1Ref = useRef<HTMLCanvasElement | null>(null);
+ const canvas2Ref = useRef<HTMLCanvasElement | null>(null);
+
 
   return (
     <main className="min-h-screen flex flex-col items-center justify-center p-4 relative">
