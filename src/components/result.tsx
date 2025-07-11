@@ -22,11 +22,12 @@ export default function ResultModal({
   getStars,
   restartGame,
 }: Props) {
+  const router = useRouter();  // ✅ Always runs!
+
   if (!show) return null;
 
   const percent = Math.round((found / total) * 100);
   const stars = getStars();
-  const router = useRouter();
 
   return (
     <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50">
@@ -68,24 +69,22 @@ export default function ResultModal({
           <p>⏱️ Time taken: <span className="font-bold">{timeTaken}s</span></p>
         </div>
 
-        <div className='flex flex-col justify-center text-center'>
-            {/* Restart Button */}
-            <button
+        {/* Buttons */}
+        <div className="flex flex-col md:flex-row justify-center gap-4 mt-8">
+          <button
             onClick={restartGame}
-            className="mt-8 inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-500 to-blue-700 text-white font-semibold rounded-full shadow-lg hover:scale-105 transition-transform"
-            >
-            Restart Game
-            </button>
+            className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-500 to-blue-700 text-white font-semibold rounded-full shadow-lg hover:scale-105 transition-transform"
+          >
+            🔄 Restart Game
+          </button>
 
-            {/* Config Button */}
-            <button
-            onClick={()=>router.push("/config")}
-            className="mt-8 inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-500 to-blue-700 text-white font-semibold rounded-full shadow-lg hover:scale-105 transition-transform"
-            >
-            Game Configuration
-            </button>
+          <button
+            onClick={() => router.push('/config')}
+            className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-green-500 to-green-700 text-white font-semibold rounded-full shadow-lg hover:scale-105 transition-transform"
+          >
+            ⚙️ Game Configuration
+          </button>
         </div>
-
       </motion.div>
     </div>
   );
