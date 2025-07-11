@@ -44,11 +44,17 @@ export function useSpotGame() {
 
   const circleId = useRef(0);
 
-  useEffect(() => {
+ useEffect(() => {
+  const localConfig = localStorage.getItem('gameConfig');
+  if (localConfig) {
+    setConfig(JSON.parse(localConfig));
+  } else {
     fetch('/config.json')
       .then((res) => res.json())
       .then((data) => setConfig(data));
-  }, []);
+  }
+}, []);
+
 
   useEffect(() => {
     if (!isRunning) return;

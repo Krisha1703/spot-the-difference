@@ -49,6 +49,40 @@ The entire game is powered by a `config.json` file in the `public/` folder.
 
 ---
 
+## ⚙️ Configuration Screen
+
+This game includes a **Config Screen** to make it fully editable without touching code.
+
+### 🗂️ Where to find it
+
+- **Game:** runs at [`/`](http://localhost:3000/) (`app/page.tsx`)
+- **Configuration:** runs at [`/config`](http://localhost:3000/config) (`app/config/page.tsx`)
+
+![Gameconfig](./public/screenshots/3.png)
+
+---
+
+### 🔑 How it works
+
+1. Visit [`/config`](http://localhost:3000/config) to update:
+   - **Game Title**
+   - **Image 1 & Image 2 URLs**
+   - **Hotspot differences** (`x`, `y`, `width`, `height` for each spot)
+
+2. Click **“Save Configuration”** — this stores your changes in **localStorage**.
+
+3. When you return to the game (`/`), the game automatically:
+   - Loads your saved config from **localStorage** (if it exists).
+   - Falls back to the default `config.json` if no custom config is saved.
+
+---
+
+### 🚀 Why this matters
+
+This demonstrates **the power of React’s hooks, state, and local storage** to make the game **dynamic**, **configurable**, and **user-friendly** — all in the browser!
+
+---
+
 ## 📁 Project Structure
 
 ```
