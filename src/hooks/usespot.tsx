@@ -10,11 +10,21 @@ import {
 } from '@/utils/helper';
 
 export type Difference = {
-  x: number;
-  y: number;
-  width: number;
-  height: number;
+  object?: string;
+  desktop: {
+    xPercent: number;
+    yPercent: number;
+    widthPercent: number;
+    heightPercent: number;
+  };
+  mobile: {
+    xPercent: number;
+    yPercent: number;
+    widthPercent: number;
+    heightPercent: number;
+  };
 };
+
 
 export type GameConfig = {
   gameTitle: string;

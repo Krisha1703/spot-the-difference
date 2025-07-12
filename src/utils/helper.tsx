@@ -1,17 +1,6 @@
 import { GameConfig, Circle } from '@/hooks/usespot';
 import confetti from 'canvas-confetti';
 
-interface HandleCanvasClickProps {
-  e: React.MouseEvent<HTMLCanvasElement>;
-  canvas: HTMLCanvasElement;
-  config: GameConfig;
-  found: number[];
-  setFound: React.Dispatch<React.SetStateAction<number[]>>;
-  setCircles: React.Dispatch<React.SetStateAction<Circle[]>>;
-  setIncorrectClicks: React.Dispatch<React.SetStateAction<number>>;
-  circleId: React.MutableRefObject<number>;
-}
-
 export const runConfetti = () => {
   confetti({
     particleCount: 150,
@@ -20,7 +9,7 @@ export const runConfetti = () => {
   });
 };
 
-export const handleCanvasClick = ({
+export function handleCanvasClick({
   e,
   canvas,
   config,
@@ -29,48 +18,68 @@ export const handleCanvasClick = ({
   setCircles,
   setIncorrectClicks,
   circleId,
-}: HandleCanvasClickProps) => {
+}: {
+  e: React.MouseEvent<HTMLCanvasElement>;
+  canvas: HTMLCanvasElement;
+  config: GameConfig;
+  found: number[];
+  setFound: React.Dispatch<React.SetStateAction<number[]>>;
+  setCircles: React.Dispatch<React.SetStateAction<Circle[]>>;
+  setIncorrectClicks: React.Dispatch<React.SetStateAction<number>>;
+  circleId: React.MutableRefObject<number>;
+}) {
   const rect = canvas.getBoundingClientRect();
-  const clickX = e.clientX - rect.left;
-  const clickY = e.clientY - rect.top;
+  const xClick = ((e.clientX - rect.left) / rect.width) * 100;
+  const yClick = ((e.clientY - rect.top) / rect.height) * 100;
 
-  const newId = circleId.current++;
-  setCircles((prev) => [
-    ...prev,
-    { x: clickX, y: clickY, status: 'pending', id: newId },
-  ]);
+  const isMobile = window.innerWidth < 768;
 
-  let isCorrect = false;
-  let foundIndex = -1;
+  let foundCorrect = false;
 
   config.differences.forEach((diff, idx) => {
-    if (!found.includes(idx)) {
-      if (
-        clickX >= diff.x &&
-        clickX <= diff.x + diff.width &&
-        clickY >= diff.y &&
-        clickY <= diff.y + diff.height
-      ) {
-        isCorrect = true;
-        foundIndex = idx;
-      }
+    if (found.includes(idx)) return;
+
+    const coords = isMobile ? diff.mobile : diff.desktop;
+
+    if (
+      xClick >= coords.xPercent &&
+      xClick <= coords.xPercent + coords.widthPercent &&
+      yClick >= coords.yPercent &&
+      yClick <= coords.yPercent + coords.heightPercent
+    ) {
+      foundCorrect = true;
+      setFound((prev) => [...prev, idx]);
+      setCircles((prev) => [
+        ...prev,
+        {
+          x: (xClick / 100) * rect.width,
+          y: (yClick / 100) * rect.height,
+          status: 'correct',
+          id: circleId.current++,
+        },
+      ]);
     }
   });
 
-  if (isCorrect && foundIndex !== -1) {
-    setTimeout(() => {
-      setCircles((prev) =>
-        prev.map((c) => (c.id === newId ? { ...c, status: 'correct' } : c))
-      );
-      setFound((prev) => [...prev, foundIndex]);
-    }, 500);
-  } else {
+  if (!foundCorrect) {
     setIncorrectClicks((prev) => prev + 1);
+    const tempId = circleId.current++;
+    setCircles((prev) => [
+      ...prev,
+      {
+        x: (xClick / 100) * rect.width,
+        y: (yClick / 100) * rect.height,
+        status: 'pending',
+        id: tempId,
+      },
+    ]);
+
     setTimeout(() => {
-      setCircles((prev) => prev.filter((c) => c.id !== newId));
-    }, 1000);
+      setCircles((prev) => prev.filter((c) => c.id !== tempId));
+    }, 2000);
   }
-};
+}
+
 
 export const shouldFinishGame = (found: number[], totalDifferences?: number) => {
   if (!totalDifferences) return false;

@@ -13,7 +13,6 @@ A fun, interactive “Spot the Difference” game built with **Next.js**, **Tail
 ✅ Arcade-style countdown timer with flicker & screen alert in the last 3 seconds.  
 ✅ Progress bar that fills up as you find more spots.  
 ✅ Confetti and stars on completion.  
-✅ Earn live badges for speed, accuracy & combos.  
 ✅ Fully responsive for mobile & desktop.  
 ✅ Clean, modular React components.
 
@@ -33,32 +32,58 @@ The entire game is powered by a `config.json` file in the `public/` folder.
     "image2": "/images/image2.png"
   },
   "differences": [
-    { "x": 100, "y": 200, "width": 50, "height": 50 },
-    { "x": 300, "y": 150, "width": 40, "height": 40 },
-    { "x": 500, "y": 300, "width": 30, "height": 30 }
+    {
+      "object": "bird",
+      "desktop": {
+        "xPercent": 30,
+        "yPercent": 20,
+        "widthPercent": 12,
+        "heightPercent": 15
+      },
+      "mobile": {
+        "xPercent": 28,
+        "yPercent": 24,
+        "widthPercent": 14,
+        "heightPercent": 18
+      }
+    },
+
+    // More differences...
   ]
 }
+
 ```
 
 ### ✅ How is it used?
 
-* **Dynamic import**: The config is fetched dynamically using `fetch('/config.json')` inside the custom `usespot` hook.
-* **Images**: Sets the source for the left and right images.
-* **Differences**: Defines clickable hotspots with x, y coordinates and bounding box size.
-* **Easy updates**: To change images or spots, just edit `config.json` — no need to touch any React code.
+✔️ **Dynamic import:**
+The config is dynamically loaded via `fetch('/config.json')` or from **localStorage** in your custom `usespot` hook.
+
+✔️ **Images:**
+Controls the left and right image sources for the game.
+
+✔️ **Differences:**
+Defines **hotspots** that players must find. Each difference includes:
+
+* An **object name** (`"bird"`, `"flower"`, etc.) for easier editing.
+* Separate **`desktop`** and **`mobile`** coordinates with `xPercent`, `yPercent`, `widthPercent`, `heightPercent` for responsive gameplay.
+
+✔️ **Easy updates:**
+Want to change images or spots? Just edit `config.json` — no need to touch any React or TypeScript files.
 
 ---
 
 ## ⚙️ Configuration Screen
 
-This game includes a **Config Screen** to make it fully editable without touching code.
+This game includes a **Visual Config Screen** to make it fully editable without touching code.
 
 ### 🗂️ Where to find it
 
-- **Game:** runs at [`/`](http://localhost:3000/) (`app/page.tsx`)
+- **Home:** runs at [`/`](http://localhost:3000) (`app/page.tsx`)
+- **Game:** runs at [`/`](http://localhost:3000/game) (`app/game/page.tsx`)
 - **Configuration:** runs at [`/config`](http://localhost:3000/config) (`app/config/page.tsx`)
 
-![Gameconfig](./public/screenshots/3.png)
+![Gameconfig](./public/screenshots/config.png)
 
 ---
 
@@ -67,7 +92,9 @@ This game includes a **Config Screen** to make it fully editable without touchin
 1. Visit [`/config`](http://localhost:3000/config) to update:
    - **Game Title**
    - **Image 1 & Image 2 URLs**
-   - **Hotspot differences** (`x`, `y`, `width`, `height` for each spot)
+   - **Hotspot differences** :
+      * `object` name
+      * `desktop` and `mobile` `xPercent`, `yPercent`, `widthPercent`, `heightPercent`
 
 2. Click **“Save Configuration”** — this stores your changes in **localStorage**.
 
@@ -148,7 +175,7 @@ Visit [http://localhost:3000](http://localhost:3000) to play!
 
 | Gameplay                                       | Result Modal                                           |
 | ---------------------------------------------- | ------------------------------------------------------ |
-| ![Gameplay](./public/screenshots/1.png) | ![Result Modal](./public/screenshots/2.png) |
+| ![Gameplay](./public/screenshots/game-1.png) | ![Result Modal](./public/screenshots/game-result.png) |
 
 ---
 

@@ -1,60 +1,22 @@
 'use client';
 
-import GameHeader from '@/components/header';
-import GameImages from '@/components/images';
-import ResultModal from '@/components/result';
-import { useSpotGame } from '@/hooks/usespot';
-import { useRef } from 'react';
-import ProgressBar from '@/components/progressbar';
+import Hero from '@/components/hero';
+import Navbar from '@/components/navbar';
 
 export default function Home() {
-  const {
-    config,
-    found,
-    incorrectClicks,
-    circles,
-    timeLeft,
-    showResult,
-    timeTaken,
-    handleClick,
-    restartGame,
-    getStars,
-  } = useSpotGame();
-
- const canvas1Ref = useRef<HTMLCanvasElement | null>(null);
- const canvas2Ref = useRef<HTMLCanvasElement | null>(null);
-
-
   return (
-    <main className="min-h-screen flex flex-col items-center justify-center p-4 relative">
-      <GameHeader gameTitle={config?.gameTitle || 'Loading...'} timeLeft={timeLeft} />
+    <main className="min-h-screen flex flex-col bg-gradient-to-br from-purple-900 to-blue-900 text-white font-sans">
+      {/* Navbar */}
+      <Navbar />
 
-      {config?.differences && (
-        <ProgressBar
-          foundCount={found.length}
-          totalDifferences={config.differences.length}
-        />
-      )}
+      {/* Hero Section */}
+      <Hero />
+      
 
-      {config?.images && (
-        <GameImages
-          image1={config.images.image1}
-          image2={config.images.image2}
-          handleClick={handleClick}
-          canvas1Ref={canvas1Ref}
-          canvas2Ref={canvas2Ref}
-          circles={circles}
-        />
-      )}
-      <ResultModal
-        show={showResult}
-        found={found.length}
-        total={config?.differences.length || 0}
-        incorrect={incorrectClicks}
-        timeTaken={timeTaken}
-        getStars={getStars}
-        restartGame={restartGame}
-      />
+      {/* Footer */}
+      <footer className="w-full text-center py-4 text-purple-100 text-sm">
+        &copy; {new Date().getFullYear()} Spot The Difference Game
+      </footer>
     </main>
   );
 }

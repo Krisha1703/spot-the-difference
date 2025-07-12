@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { Circle } from '../hooks/usespot';
+import { Circle, Difference } from '../hooks/usespot';
 
 type Props = {
   image1: string;
@@ -10,6 +10,7 @@ type Props = {
   canvas1Ref: React.RefObject<HTMLCanvasElement | null>;
   canvas2Ref: React.RefObject<HTMLCanvasElement | null>;
   circles: Circle[];
+  differences: Difference[];
 };
 
 export default function GameImages({
@@ -19,9 +20,12 @@ export default function GameImages({
   canvas1Ref,
   canvas2Ref,
   circles,
+  differences = [],
 }: Props) {
+  const isMobile = typeof window !== 'undefined' ? window.innerWidth < 768 : false;
+
   return (
-    <div className="flex flex-col md:flex-row gap-4 justify-center relative w-full max-w-full sm:max-w-5/6 mx-auto">
+    <div className="flex flex-col md:flex-row gap-4 justify-center relative w-full">
       {[image1, image2].map((img, idx) => (
         <div
           key={idx}
@@ -33,11 +37,31 @@ export default function GameImages({
             fill
             className="object-contain"
           />
+
           <canvas
             ref={idx === 0 ? canvas1Ref : canvas2Ref}
             className="absolute top-0 left-0 w-full h-full"
-            onClick={(e) => handleClick(e, (idx === 0 ? canvas1Ref : canvas2Ref).current!)}
+            onClick={(e) =>
+              handleClick(e, (idx === 0 ? canvas1Ref : canvas2Ref).current!)
+            }
           />
+
+          {differences.map((diff, i) => {
+            const coords = isMobile ? diff.mobile : diff.desktop;
+            return (
+              <div
+                key={`diff-${i}-${idx}`}
+                className="absolute border-none"
+                style={{
+                  top: `${coords.yPercent}%`,
+                  left: `${coords.xPercent}%`,
+                  width: `${coords.widthPercent}%`,
+                  height: `${coords.heightPercent}%`,
+                  pointerEvents: 'none',
+                }}
+              />
+            );
+          })}
         </div>
       ))}
 

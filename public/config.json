@@ -5,12 +5,110 @@
     "image2": "/images/image2.png"
   },
   "differences": [
-    { "x": 170, "y": 70, "width": 70, "height": 70 },
-    { "x": 40, "y": 300, "width": 50, "height": 50 },
-    { "x": 200, "y": 330, "width": 60, "height": 60 },
-    { "x": 110, "y": 350, "width": 30, "height": 30 },
-    { "x": 400, "y": 230, "width": 120, "height": 120 },
-    { "x": 540, "y": 310, "width": 40, "height": 40 },
-    { "x": 450, "y": 360, "width": 30, "height": 30 }
+    {
+      "object": "bird",
+      "desktop": {
+        "xPercent": 25,
+        "yPercent": 18,
+        "widthPercent": 20,
+        "heightPercent": 20
+      },
+      "mobile": {
+        "xPercent": 30,
+        "yPercent": 27,
+        "widthPercent": 15,
+        "heightPercent": 15
+      }
+    },
+    {
+      "object": "redflower",
+      "desktop": {
+        "xPercent": 5,
+        "yPercent": 75,
+        "widthPercent": 12,
+        "heightPercent": 15
+      },
+      "mobile": {
+        "xPercent": 5,
+        "yPercent": 63,
+        "widthPercent": 12,
+        "heightPercent": 12
+      }
+    },
+    {
+      "object": "stones",
+      "desktop": {
+        "xPercent": 34,
+        "yPercent": 85,
+        "widthPercent": 12,
+        "heightPercent": 15
+      },
+      "mobile": {
+        "xPercent": 33,
+        "yPercent": 70,
+        "widthPercent": 12,
+        "heightPercent": 12
+      }
+    },
+    {
+      "object": "whiteflower",
+      "desktop": {
+        "xPercent": 18,
+        "yPercent": 90,
+        "widthPercent": 7,
+        "heightPercent": 9
+      },
+      "mobile": {
+        "xPercent": 16,
+        "yPercent": 72,
+        "widthPercent": 8,
+        "heightPercent": 8
+      }
+    },
+    {
+      "object": "dog",
+      "desktop": {
+        "xPercent": 65,
+        "yPercent": 55,
+        "widthPercent": 20,
+        "heightPercent": 30
+      },
+      "mobile": {
+        "xPercent": 65,
+        "yPercent": 50,
+        "widthPercent": 22,
+        "heightPercent": 22
+      }
+    },
+    {
+      "object": "yellowflower",
+      "desktop": {
+        "xPercent": 88,
+        "yPercent": 77,
+        "widthPercent": 10,
+        "heightPercent": 12
+      },
+      "mobile": {
+        "xPercent": 90,
+        "yPercent": 67,
+        "widthPercent": 8,
+        "heightPercent": 8
+      }
+    },
+    {
+      "object": "stone",
+      "desktop": {
+        "xPercent": 75,
+        "yPercent": 92,
+        "widthPercent": 5,
+        "heightPercent": 5
+      },
+      "mobile": {
+        "xPercent": 75,
+        "yPercent": 75,
+        "widthPercent": 6,
+        "heightPercent": 6
+      }
+    }
   ]
 }

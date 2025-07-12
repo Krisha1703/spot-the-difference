@@ -29,13 +29,14 @@ export default function Timer({ timeLeft, setTimeLeft, onTimeUp, isRunning }: Ti
     <>
       <div
         className={`
-          text-4xl 
-          text-red-600 
+          text-2xl 
+          bg-red-500 p-3 text-white
           font-semibold 
           tracking-wide
           rounded-lg px-4 py-2 font-arcade
         `}
       >
+        Time: 
         {timeLeft}s
       </div>
 
